@@ -1,0 +1,35 @@
+import { Route, Routes } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Protected from './components/Protected'
+import { AuthContextProvider } from './context/AuthContext'
+import Account from './pages/Account'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import SignUp from './pages/SignUp'
+
+function App() {
+  return (
+    <>
+      <AuthContextProvider>
+        <Navbar />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<SignUp />} />
+          <Route
+            path='/account'
+            element={
+              <Protected>
+                <Account />
+              </Protected>
+            }
+          />
+        </Routes>
+      </AuthContextProvider>
+    </>
+  )
+}
+
+export default App
+
+// https://api.themoviedb.org/3/movie/now_playing?api_key=<<api_key>>&language=en-US&page=1
